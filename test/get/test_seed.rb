@@ -39,11 +39,11 @@ class TestSeed < Test::Unit::TestCase
   def test_get_should_create_a_random_with_octal_digits
     length = 10000
     token = RandomToken.get(length, :seed => :o)
-    assert_match(/^[0-8]*$/, token)
+    assert_match(/^[0-7]*$/, token)
     token = RandomToken.get(length, :seed => :oct)
-    assert_match(/^[0-8]*$/, token)
+    assert_match(/^[0-7]*$/, token)
     token = RandomToken.get(length, :seed => 8)
-    assert_match(/^[0-8]*$/, token)
+    assert_match(/^[0-7]*$/, token)
   end
 
   def test_get_should_create_a_random_with_hexadecimal_digits

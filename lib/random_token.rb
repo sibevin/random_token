@@ -41,7 +41,7 @@ module RandomToken
       },
       :oct => {
         :abbr => [:o, 8],
-        :seed => [('0'..'8')],
+        :seed => [('0'..'7')],
         :support_case => false,
         :support_friendly => false
       },
