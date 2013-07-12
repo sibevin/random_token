@@ -77,7 +77,7 @@ module RandomToken
     end
 
     def genf(arg, options = {})
-      gen(arg, { :friendly => true }.merge(option))
+      gen(arg, { :friendly => true }.merge(options))
     end
 
     def get(length, options = {})
