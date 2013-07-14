@@ -1,71 +1,69 @@
 require "random_token/random_token_error"
 
 module RandomToken
+  NUMBERS = ('0'..'9')
+  ALPHABETS = ('A'..'Z')
+  MASK = ['1', 'I', 'l', 'i', '0', 'O', 'o', 'Q', 'D',
+          'C', 'c', 'G', '9', '6', 'U', 'u', 'V', 'v',
+          'E', 'F', 'M', 'N', '8', 'B']
+
+  DEFAULT_OPT = {
+    :seed => nil,
+    :friendly => false,
+    :case => :mixed
+  }
+
+  SEED_TYPES = {
+    :default => {
+      :abbr => [nil],
+      :seed => [NUMBERS, ALPHABETS],
+      :support_friendly => true,
+      :support_case => true,
+      :default_case => :mixed
+    },
+    :alphabet => {
+      :abbr => [:letter, :a, :l],
+      :seed => [ALPHABETS],
+    },
+    :number => {
+      :abbr => [:n, 1, 10],
+      :seed => [NUMBERS],
+      :support_case => false
+    },
+    :binary => {
+      :abbr => [:b, 2],
+      :seed => [('0'..'1')],
+      :support_case => false,
+      :support_friendly => false
+    },
+    :oct => {
+      :abbr => [:o, 8],
+      :seed => [('0'..'7')],
+      :support_case => false,
+      :support_friendly => false
+    },
+    :hex => {
+      :abbr => [:h, 16],
+      :seed => [NUMBERS, ('A'..'F')],
+      :support_friendly => false,
+      :default_case => :up
+    }
+  }
+
+  STRF_ARG_MAP = {
+    'A' => { :seed => :alphabet, :case => :up },
+    'a' => { :seed => :alphabet, :case => :down },
+    'n' => { :seed => :number },
+    'b' => { :seed => :binary },
+    'o' => { :seed => :oct },
+    'h' => { :seed => :hex, :case => :down },
+    'H' => { :seed => :hex, :case => :up },
+    'X' => { :case => :up },
+    'x' => { :case => :down },
+    '?' => {}
+  }
+
   class << self
-    VERSION = '1.0.0.0'
-
-    NUMBERS = ('0'..'9')
-    ALPHABETS = ('A'..'Z')
-    MASK = ['1', 'I', 'l', 'i', '0', 'O', 'o', 'Q', 'D',
-            'C', 'c', 'G', '9', '6', 'U', 'u', 'V', 'v',
-            'E', 'F', 'M', 'N', '8', 'B']
-
-    DEFAULT_OPT = {
-      :seed => nil,
-      :friendly => false,
-      :case => :mixed
-    }
-
-    SEED_TYPES = {
-      :default => {
-        :abbr => [nil],
-        :seed => [NUMBERS, ALPHABETS],
-        :support_friendly => true,
-        :support_case => true,
-        :default_case => :mixed
-      },
-      :alphabet => {
-        :abbr => [:letter, :a, :l],
-        :seed => [ALPHABETS],
-      },
-      :number => {
-        :abbr => [:n, 1, 10],
-        :seed => [NUMBERS],
-        :support_case => false
-      },
-      :binary => {
-        :abbr => [:b, 2],
-        :seed => [('0'..'1')],
-        :support_case => false,
-        :support_friendly => false
-      },
-      :oct => {
-        :abbr => [:o, 8],
-        :seed => [('0'..'7')],
-        :support_case => false,
-        :support_friendly => false
-      },
-      :hex => {
-        :abbr => [:h, 16],
-        :seed => [NUMBERS, ('A'..'F')],
-        :support_friendly => false,
-        :default_case => :up
-      }
-    }
-
-    STRF_ARG_MAP = {
-      'A' => { :seed => :alphabet, :case => :up },
-      'a' => { :seed => :alphabet, :case => :down },
-      'n' => { :seed => :number },
-      'b' => { :seed => :binary },
-      'o' => { :seed => :oct },
-      'h' => { :seed => :hex, :case => :down },
-      'H' => { :seed => :hex, :case => :up },
-      'X' => { :case => :up },
-      'x' => { :case => :down },
-      '?' => {}
-    }
-
     def gen(arg, options = {})
       if arg.class.name == 'Fixnum'
         get(arg, options)
@@ -106,7 +104,8 @@ module RandomToken
           end
         elsif STRF_ARG_MAP.keys.include?(x)
           if in_arg
-            result << self.get((length == "") ? 1 : length.to_i, STRF_ARG_MAP[x].merge(options))
+            result << self.get((length == "") ? 1 : length.to_i,
+                               STRF_ARG_MAP[x].merge(options))
             length = ''
             in_arg = false
           else
