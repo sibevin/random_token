@@ -78,7 +78,7 @@ Use `:friendly` option to remove the ambiguous characters, the default mask incl
     RandomToken.gen(32, :friendly => true)
     # "fjx5WTb4wbPmbwb7b4szzY4szfrqtJLj"
 
-There is a convenient method "genf" which using `:friendly => true` by default.
+The default `:friendly` option is false. There is a convenient method "genf" using `:friendly => true` by default.
 
     RandomToken.genf(32)
     # "kPafJh5gHAPJjYsssjW7yhthPr4Zg4t3"
@@ -88,9 +88,9 @@ Friendly is not supported with some `:seed` options(`:b`, `:o`, `:h` and customi
     RandomToken.genf(32, :seed => :b)
     # RandomToken::RandomTokenError: RandomToken::RandomTokenError
 
-Use `:mask` to customize your own friendly mask. Note that `:friendly` is ture by default if `:mask` is given.
+Use `:mask` to customize your own friendly mask. Note that `:friendly` is true by default if `:mask` is given.
 
-    RandomToken.gen(32, :mask => ['a', 'b', 'c'])
+    RandomToken.gen(32, :mask => ['a', 'A', 'b', 'c'])
     # "QlHhMpfrGnOykMS8tpfYrW0EnqvRsItw"
 
 ### Case
@@ -117,7 +117,7 @@ Case is not supported with some `:seed` options(`:n`, `:b`, `:o` and customized 
     RandomToken.gen(32, :seed => :n, :case => :u)
     # RandomToken::RandomTokenError: RandomToken::RandomTokenError
 
-With `:seed => :h`, the default case is changed to upper-case. You can override it by giving the `:case` option.
+With :hex seed, i.e, `:seed => :h`, the default case is changed to upper-case. You can override it by giving the `:case` option.
 
     RandomToken.gen(32, :seed => :h, :case => :d)
     # "d331ce7dae87f3bb3dcb3975be9c430d"
