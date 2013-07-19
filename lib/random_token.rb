@@ -1,18 +1,26 @@
 require "random_token/random_token_error"
 
 module RandomToken
+
+  # The number seed
   NUMBERS = ('0'..'9')
+
+  # The alphabet seed
   ALPHABETS = ('A'..'Z')
+
+  # The default friendly mask
   MASK = ['1', 'I', 'l', 'i', '0', 'O', 'o', 'Q', 'D',
           'C', 'c', 'G', '9', '6', 'U', 'u', 'V', 'v',
           'E', 'F', 'M', 'N', '8', 'B']
 
+  # The default option definition
   DEFAULT_OPT = {
     :seed => nil,
     :friendly => false,
     :case => :mixed
   }
 
+  # The default seeds definition
   SEED_TYPES = {
     :default => {
       :abbr => [nil],
@@ -50,6 +58,7 @@ module RandomToken
     }
   }
 
+  # The directives used in the {RandomToken.strf} method.
   STRF_ARG_MAP = {
     'A' => { :seed => :alphabet, :case => :up },
     'a' => { :seed => :alphabet, :case => :down },
@@ -64,6 +73,19 @@ module RandomToken
   }
 
   class << self
+    # The major method to generate a random token. It would call {RandomToken.get} or {RandomToken.strf} according to the given arg.
+    # @param arg [Fixnum, String]
+    #   To give a token length or the string format for generating token.
+    # @param options [Hash]
+    #   The options to modify the token.
+    #   Three options :seed, :friendly and :case are supported.
+    #   Please see {file:README} to get more examples
+    # @return [String]
+    #   The generated token.
+    # @raise [RandomTokenError]
+    #   Please see {RandomToken::RandomTokenError}
+    # @see RandomToken.get
+    # @see RandomToken.strf
     def gen(arg, options = {})
       if arg.class.name == 'Fixnum'
         get(arg, options)
@@ -74,15 +96,32 @@ module RandomToken
       end
     end
 
+    # A convenient method to generate a friendly token. It would call {RandomToken.gen} with :friendly => true option.
+    # @param arg (see RandomToken.gen)
+    # @param options (see RandomToken.gen)
+    # @return (see RandomToken.gen)
+    # @raise (see RandomToken.gen)
     def genf(arg, options = {})
       gen(arg, { :friendly => true }.merge(options))
     end
 
+    # To generate a random token with a given length.
+    # @param length [Fixnum]
+    #   The token length.
+    # @param options (see RandomToken.gen)
+    # @return (see RandomToken.gen)
+    # @raise (see RandomToken.gen)
     def get(length, options = {})
       seeds = gen_seeds(options)[:seed]
       token = (0...length).map{ seeds[rand(seeds.length)] }.join
     end
 
+    # To generate a random token with a string format. Please see {file:README.rdoc} to get more detail usage and examples
+    # @param pattern [String]
+    #   The string format pattern.
+    # @param options (see RandomToken.gen)
+    # @return (see RandomToken.gen)
+    # @raise (see RandomToken.gen)
     def strf(pattern, options = {})
       in_arg = false
       result = ''
@@ -130,12 +169,9 @@ module RandomToken
       end
     end
 
-    def default_mask
-      return MASK
-    end
-
     private
 
+    # To generate seeds according to the :seed options
     def gen_seeds(opt)
       opt_seed = opt[:seed]
       default_opt = SEED_TYPES[:default]
@@ -161,6 +197,7 @@ module RandomToken
       end
     end
 
+    # To modify seeds according to the :case, :friendly and :mask options
     def seed_modifier(opt)
       if opt[:support_case]
         case_opt = opt[:case] || opt[:default_case]

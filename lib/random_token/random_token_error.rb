@@ -1,5 +1,9 @@
 module RandomToken
+
+  # A customized exception for RandomToken
   class RandomTokenError < StandardError
+
+    # Errors used in RandomToken
     ERRORS = {
       :unknown_seed => {
         :status => :failed,
@@ -35,6 +39,11 @@ module RandomToken
 
     attr_reader :code, :value, :msg, :info, :status
 
+    # The RandomTokenError constructor.
+    # @param error [Fixnum, String]
+    #   You can give a error number defined in the keys of {RandomToken::RandomTokenError::ERRORS} or a string message for internal usage.
+    # @param info [Hash]
+    #   Anything you want to put in the info attribute of RandomTokenError.
     def initialize(error, info = {})
       @code = error
       @info = info
@@ -54,6 +63,7 @@ module RandomToken
       end
     end
 
+    # Override the message method to show more information in RandomTokenError
     def message
       "RandomTokenError(#{@code.to_s}): value = #{@value}, status = #{@status.to_s}, msg = #{@msg}, info = #{@info.inspect}"
     end
