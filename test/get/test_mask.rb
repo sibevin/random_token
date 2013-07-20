@@ -16,4 +16,13 @@ class TestMask < Test::Unit::TestCase
                                                                               :friendly => false) }
     assert(e.code == :false_friendly_with_given_mask)
   end
+
+  def test_get_should_raise_an_exception_if_mask_remove_all_seeds
+    length = 10000
+    seed = ['a']
+    mask = ['a']
+    e = assert_raise(RandomToken::RandomTokenError) { RandomToken.get(length, :seed => seed,
+                                                                              :mask => mask) }
+    assert(e.code == :mask_remove_all_seeds)
+  end
 end

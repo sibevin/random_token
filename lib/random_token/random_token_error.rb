@@ -28,6 +28,10 @@ module RandomToken
       :invalid_gen_arg => {
         :value => 6,
         :msg => "The given arg is invalid."
+      },
+      :mask_remove_all_seeds => {
+        :value => 7,
+        :msg => "The friendly mask removes all seeds."
       }
     }
 

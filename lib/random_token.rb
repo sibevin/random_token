@@ -230,6 +230,7 @@ module RandomToken
           raise RandomTokenError.new(:not_support_friendly, opt)
         end
       end
+      raise RandomTokenError.new(:mask_remove_all_seeds, opt) if opt[:seed] == []
       opt
     end
   end
