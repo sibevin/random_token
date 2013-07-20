@@ -1,6 +1,6 @@
 # Random Token
 
-Generate a random token in a simply way.
+A simple way to generate a random token.
 
     jjukoguwegcvclkuhljvsblrpfnd
     je         dzl            pu
