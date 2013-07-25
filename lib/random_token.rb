@@ -161,14 +161,6 @@ module RandomToken
       result
     end
 
-    def count(arg, options = {})
-      if arg.is_a?(Fixnum)
-        # TODO
-      elsif arg.is_a?(String)
-        # TODO
-      end
-    end
-
     private
 
     # To generate seeds according to the :seed options
@@ -235,4 +227,3 @@ module RandomToken
     end
   end
 end
-
