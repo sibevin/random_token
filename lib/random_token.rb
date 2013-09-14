@@ -58,7 +58,25 @@ module RandomToken
     }
   }
 
-  # The directives used in the {RandomToken.strf} method.
+  # The supported options
+  SUPPORTED_OPTS = {
+    :seed => {
+      :abbr => :s
+    },
+    :case => {
+      :abbr => :c,
+      :value => [:up, :u, :down, :d, :mixed, :m]
+    },
+    :mask => {
+      :abbr => :m
+    },
+    :friendly => {
+      :abbr => :f,
+      :value => [true, false]
+    }
+  }
+
+  # The directives used in the format string
   STRF_ARG_MAP = {
     'A' => { :seed => :alphabet, :case => :up },
     'a' => { :seed => :alphabet, :case => :down },
@@ -73,7 +91,7 @@ module RandomToken
   }
 
   class << self
-    # The major method to generate a random token. It would call {RandomToken.get} or {RandomToken.strf} according to the given arg.
+    # The major method to generate a random token.
     # @param arg [Fixnum, String]
     #   To give a token length or the string format for generating token.
     # @param options [Hash]
@@ -84,15 +102,9 @@ module RandomToken
     #   The generated token.
     # @raise [RandomTokenError]
     #   Please see {RandomToken::RandomTokenError}
-    # @see RandomToken.get
-    # @see RandomToken.strf
     def gen(arg, options = {})
-      if arg.class.name == 'Fixnum'
-        get(arg, options)
-      elsif arg.class.name == 'String'
-        strf(arg, options)
-      else
-        raise RandomTokenError.new(:invalid_gen_arg, arg)
+      arg_dispatcher(arg, options) do |length, seeds|
+        (0...length).map{ seeds[rand(seeds.length)] }.join
       end
     end
 
@@ -105,26 +117,90 @@ module RandomToken
       gen(arg, { :friendly => true }.merge(options))
     end
 
-    # To generate a random token with a given length.
-    # @param length [Fixnum]
-    #   The token length.
+    # TODO: Add count feature
+=begin
+    # Count the number of token combination with given arg and options.
+    # @param arg (see RandomToken.gen)
+    # @param options (see RandomToken.gen)
+    # @return [Fixnum] the number of combination
+    # @raise (see RandomToken.gen)
+    def count(arg, options = {})
+      arg_dispatcher(arg, options, true) do |length, seeds|
+        seeds.length ** length
+      end
+    end
+=end
+
+    # An old method for downward compatibility and it should be discarded.
+    # Use "gen" instead.
+    # @param arg (see RandomToken.gen)
     # @param options (see RandomToken.gen)
     # @return (see RandomToken.gen)
     # @raise (see RandomToken.gen)
-    def get(length, options = {})
-      seeds = gen_seeds(options)[:seed]
-      token = (0...length).map{ seeds[rand(seeds.length)] }.join
+    def get(arg, options = {})
+      gen(arg, options)
     end
 
-    # To generate a random token with a string format. Please see {file:README.rdoc} to get more detail usage and examples
-    # @param pattern [String]
-    #   The string format pattern.
+    # An old method for downward compatibility and it should be discarded.
+    # Use "gen" instead.
+    # @param arg (see RandomToken.gen)
     # @param options (see RandomToken.gen)
     # @return (see RandomToken.gen)
     # @raise (see RandomToken.gen)
-    def strf(pattern, options = {})
+    def strf(arg, options = {})
+      gen(arg, options)
+    end
+
+    private
+
+    # Decide how to generate/count token according to the arg type.
+    def arg_dispatcher(arg, options, count = false)
+      options = check_opt(options)
+      unless block_given?
+        raise RandomTokenError.new(
+          "No block is given when calling arg_dispatcher.")
+      end
+      if arg.is_a?(Fixnum)
+        run_by_length(arg, options) do |length, seeds|
+          yield(length, seeds)
+        end
+      elsif arg.is_a?(String)
+        result = run_by_pattern(arg, options) do |length, seeds|
+          yield(length, seeds)
+        end
+        return result.join
+        # TODO: Add count feature
+=begin
+        if count
+          return result.delete_if { |x| x.is_a?(String) }.inject(0, :*)
+        else
+          return result.join
+        end
+=end
+      else
+        raise RandomTokenError.new(:invalid_gen_arg, arg)
+      end
+    end
+
+    # Generate/count token with a given length.
+    def run_by_length(length, options)
+      if block_given?
+        seeds = gen_seeds(options)[:seed]
+        yield(length, seeds)
+      else
+        raise RandomTokenError.new(
+          "No block is given when calling run_by_length.")
+      end
+    end
+
+    # Generate/count token with a format string.
+    def run_by_pattern(pattern, options = {})
+      unless block_given?
+        raise RandomTokenError.new(
+          "No block is given when calling run_by_pattern.")
+      end
       in_arg = false
-      result = ''
+      result = []
       length = ''
       pattern.split(//).each do |x|
         if x == '%'
@@ -143,8 +219,8 @@ module RandomToken
           end
         elsif STRF_ARG_MAP.keys.include?(x)
           if in_arg
-            result << self.get((length == "") ? 1 : length.to_i,
-                               STRF_ARG_MAP[x].merge(options))
+            seeds = gen_seeds(STRF_ARG_MAP[x].merge(options))[:seed]
+            result << yield((length == "") ? 1 : length.to_i, seeds)
             length = ''
             in_arg = false
           else
@@ -161,17 +237,21 @@ module RandomToken
       result
     end
 
-    def count(arg, options = {})
-      if arg.is_a?(Fixnum)
-        # TODO
-      elsif arg.is_a?(String)
-        # TODO
+    # Check options
+    def check_opt(opts)
+      SUPPORTED_OPTS.each do |key, value|
+        if opts[key] && opts.keys.include?(value[:abbr])
+          raise RandomTokenError.new(:duplicated_option, opts)
+        end
+        opts.merge!(key => opts[value[:abbr]]) if opts[value[:abbr]]
+        if value[:value] && opts[key] && !value[:value].include?(opts[key])
+          raise RandomTokenError.new(:invalid_option_value, opts)
+        end
       end
+      opts
     end
 
-    private
-
-    # To generate seeds according to the :seed options
+    # Generate seeds according to the :seed options
     def gen_seeds(opt)
       opt_seed = opt[:seed]
       default_opt = SEED_TYPES[:default]
@@ -189,15 +269,17 @@ module RandomToken
         return seed_modifier(default_opt.merge(:case => :keep).merge(opt))
       elsif opt_seed.is_a?(Hash)
         seeds = opt_seed.to_a.map {|s| (s.first * s.last).split(//)}.flatten
-        return seed_modifier(default_opt.merge(opt).merge(:seed => seeds,
-                                                          :support_case => false,
-                                                          :support_friendly => false ))
+        return seed_modifier(default_opt.
+                             merge(opt).
+                             merge(:seed => seeds,
+                                   :support_case => false,
+                                   :support_friendly => false ))
       else
         raise RandomTokenError.new(:unknown_seed, opt_seed)
       end
     end
 
-    # To modify seeds according to the :case, :friendly and :mask options
+    # Modify seeds according to the :case, :friendly and :mask options
     def seed_modifier(opt)
       if opt[:support_case]
         case_opt = opt[:case] || opt[:default_case]

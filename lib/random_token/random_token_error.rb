@@ -32,7 +32,15 @@ module RandomToken
       :mask_remove_all_seeds => {
         :value => 7,
         :msg => "The friendly mask removes all seeds."
-      }
+      },
+      :duplicated_option => {
+        :value => 8,
+        :msg => "The same options are given."
+      },
+      :invalid_option_value => {
+        :value => 9,
+        :msg => "The given option value is invalid."
+      },
     }
 
     attr_reader :code, :value, :msg, :info

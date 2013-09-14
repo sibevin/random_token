@@ -1,0 +1,30 @@
+require "test/unit"
+require "random_token"
+
+class TestMask < Test::Unit::TestCase
+  def test_gen_should_use_given_mask
+    length = 10000
+    mask = ['a','b','c','d','e','0','1','2','3','4']
+    token = RandomToken.gen(length, :mask => mask)
+    assert((token.split(//).uniq - mask) == token.split(//).uniq)
+    token = RandomToken.gen(length, :m => mask)
+    assert((token.split(//).uniq - mask) == token.split(//).uniq)
+  end
+
+  def test_gen_should_raise_an_exception_if_mask_is_given_but_friendly_option_is_false
+    length = 10000
+    mask = ['a','b','c','d','e','0','1','2','3','4']
+    e = assert_raise(RandomToken::RandomTokenError) { RandomToken.gen(length, :mask => mask,
+                                                                              :friendly => false) }
+    assert(e.code == :false_friendly_with_given_mask)
+  end
+
+  def test_gen_should_raise_an_exception_if_mask_remove_all_seeds
+    length = 10000
+    seed = ['a']
+    mask = ['a']
+    e = assert_raise(RandomToken::RandomTokenError) { RandomToken.gen(length, :seed => seed,
+                                                                              :mask => mask) }
+    assert(e.code == :mask_remove_all_seeds)
+  end
+end
