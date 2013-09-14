@@ -317,4 +317,3 @@ module RandomToken
     end
   end
 end
-
