@@ -97,8 +97,10 @@ class TestSeed < Test::Unit::TestCase
              '[', ']', '\\', '|', ';', ':', '\'', '"', ',', '<',
              '.', '>', '/', '?', '`', '~']
     token = RandomToken.gen(length, :seed => seeds)
-    assert_match(/^#{"[#{Regexp.escape(seeds.join)}]"}*$/, token)
+    targets = "[#{Regexp.escape(seeds.join)}]"
+    assert_match(/^#{targets}*$/, token)
     token = RandomToken.gen(length, :s => seeds)
-    assert_match(/^#{"[#{Regexp.escape(seeds.join)}]"}*$/, token)
+    targets = "[#{Regexp.escape(seeds.join)}]"
+    assert_match(/^#{targets}*$/, token)
   end
 end
