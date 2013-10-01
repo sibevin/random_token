@@ -40,6 +40,7 @@ class TestCase < Test::Unit::TestCase
     length = 10000
     seeds = ['a', 'B', 'c', 'D', 'e', 'F', 'g', 'H', 'i', 'J', 'k', 'L', 'm', 'N']
     token = RandomToken.get(length, :seed => seeds)
-    assert_match(/^#{"[#{Regexp.escape(seeds.join)}]"}*$/, token)
+    targets = "[#{Regexp.escape(seeds.join)}]"
+    assert_match(/^#{targets}*$/, token)
   end
 end
