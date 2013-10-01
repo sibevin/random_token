@@ -1,8 +1,10 @@
 # Random Token
 
 [![Gem Version](https://badge.fury.io/rb/random_token.png)][gem]
+[![Build Status](https://travis-ci.org/sibevin/random_token.png?branch=build)][travis]
 
 [gem]: https://rubygems.org/gems/random_token
+[travis]: https://travis-ci.org/sibevin/random_token
 
 A simple way to generate a random token.
 
