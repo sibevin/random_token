@@ -1,5 +1,9 @@
 # Random Token
 
+[![Gem Version](https://badge.fury.io/rb/random_token.png)][gem]
+
+[gem]: https://rubygems.org/gems/random_token
+
 A simple way to generate a random token.
 
     jjukoguwegcvclkuhljvsblrpfnd
