@@ -19,13 +19,13 @@ class TestGen < Test::Unit::TestCase
   end
 
   def test_gen_should_raise_an_exception_if_the_given_options_are_duplicated
-    e = assert_raise(RandomToken::RandomTokenError) { RandomToken.gen(8, s: :a, seed: :o) }
+    e = assert_raise(RandomToken::RandomTokenError) { RandomToken.gen(8, :s => :a, :seed => :o) }
     assert(e.code == :duplicated_option)
   end
 
   def test_gen_should_raise_an_exception_if_the_given_option_values_are_invalid
     invalid_value = 'invalid_value'
-    e = assert_raise(RandomToken::RandomTokenError) { RandomToken.gen(8, c: invalid_value) }
+    e = assert_raise(RandomToken::RandomTokenError) { RandomToken.gen(8, :c => invalid_value) }
     assert(e.code == :invalid_option_value)
   end
 end
