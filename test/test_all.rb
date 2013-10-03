@@ -1,3 +1,6 @@
+require 'coveralls'
+Coveralls.wear!
+
 require "test/unit"
 
 $LOAD_PATH.unshift("#{File.dirname(__FILE__)}")
