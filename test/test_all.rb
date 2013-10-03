@@ -1,5 +1,8 @@
 require "test/unit"
 
+require 'coveralls'
+Converalls.wear!
+
 $LOAD_PATH.unshift("#{File.dirname(__FILE__)}")
 require "test_helper"
 require "random_token"
