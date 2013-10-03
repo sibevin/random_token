@@ -14,7 +14,7 @@ rvm:
   - ree
 
 before_install:
-  - gem install converalls
+  - gem install coveralls
 
 script: "ruby ./test/test_all.rb"
 
