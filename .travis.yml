@@ -13,6 +13,9 @@ rvm:
   - 1.8.7
   - ree
 
+before_install:
+  - gem install converalls
+
 script: "ruby ./test/test_all.rb"
 
 branches:
