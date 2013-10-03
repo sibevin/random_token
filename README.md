@@ -71,17 +71,17 @@ where
 
 *   type
 
-> A - upper-case alphabets
-> a - down-case alphabets
-> n - numbers
-> b - binaries
-> o - octal digits
-> H - upper-case hexadecimal digits
-> h - down-case hexadecimal digits
-> X - upper-case alphabets and numbers
-> x - down-case alphabets and numbers
-> ? - mixed-case alphabets and numbers
-> % - show the % sign
+> A - upper-case alphabets  
+> a - down-case alphabets  
+> n - numbers  
+> b - binaries  
+> o - octal digits  
+> H - upper-case hexadecimal digits  
+> h - down-case hexadecimal digits  
+> X - upper-case alphabets and numbers  
+> x - down-case alphabets and numbers  
+> ? - mixed-case alphabets and numbers  
+> % - show the % sign  
 
 `:seed`, `:friendly`, `:case` options are supported in the format string, and they would override the type behavior.
 
@@ -101,7 +101,7 @@ The random token are created with mixed-case alphbets and numbers by default, sa
 
 ### Seed
 
-Use `:s` (or `:seed`) option to customize the random characters.
+Use `:s` (or `:seed`) option to customize the random characters. Here are available options:
 
 Use `:a` (or `:alphabet`, `:l`, `:letter`) to create a token with alphabets.
 
@@ -138,7 +138,7 @@ Use a `hash` to customize random seeds and their distribution. For example, the 
     RandomToken.gen(32, s: { 'a' => 1, 'b' => 2 })
     # "bbabbaaaabaabbbabbbbbbbbbaababbb"
 
-### Friendly
+### Friendly & Mask
 
 Use `:f` (or `:friendly`) option to remove the ambiguous characters, the default mask includes *1, I, l, i, 0, O, o, Q, D, C, c, G, 9, 6, U, u, V, v, E, F, M, N, 8, B*.
 
@@ -162,7 +162,7 @@ Use `:m` (or `:mask`) to customize your own friendly mask. Note that `:friendly`
 
 ### Case
 
-Use `:c` (or `:case`) option to modify the token case.
+Use `:c` (or `:case`) option to modify the token case. Here are available options:
 
 Use `:u` (or `:up`) to create an upper-case token.
 
