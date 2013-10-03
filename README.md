@@ -2,9 +2,11 @@
 
 [![Gem Version](https://badge.fury.io/rb/random_token.png)][gem]
 [![Build Status](https://travis-ci.org/sibevin/random_token.png?branch=build)][travis]
+[![Coverage Status](https://coveralls.io/repos/sibevin/random_token/badge.png?branch=cover-check)][coveralls]
 
 [gem]: https://rubygems.org/gems/random_token
 [travis]: https://travis-ci.org/sibevin/random_token
+[coveralls]:https://coveralls.io/r/sibevin/random_token?branch=cover-check
 
 A simple way to generate a random token.
 
