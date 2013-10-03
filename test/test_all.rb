@@ -1,7 +1,7 @@
 require "test/unit"
 
 require 'coveralls'
-Converalls.wear!
+Coveralls.wear!
 
 $LOAD_PATH.unshift("#{File.dirname(__FILE__)}")
 require "test_helper"
