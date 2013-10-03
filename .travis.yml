@@ -21,3 +21,4 @@ script: "ruby ./test/test_all.rb"
 branches:
   only:
     - build
+    - cover-check
