@@ -1,4 +1,5 @@
 require "random_token/random_token_error"
+require "securerandom"
 
 module RandomToken
 
@@ -104,7 +105,7 @@ module RandomToken
     #   Please see {RandomToken::RandomTokenError}
     def gen(arg, options = {})
       arg_dispatcher(arg, options) do |length, seeds|
-        (0...length).map{ seeds[rand(seeds.length)] }.join
+        (0...length).map{ seeds[SecureRandom.random_number(seeds.length)] }.join
       end
     end
 
@@ -284,7 +285,7 @@ module RandomToken
       if opt[:support_case]
         case_opt = opt[:case] || opt[:default_case]
         case case_opt
-          when :up, :u 
+          when :up, :u
             cased_seed = opt[:seed].map { |s| s.upcase }
           when :down, :d, :lower, :l
             cased_seed = opt[:seed].map { |s| s.downcase }
@@ -298,7 +299,7 @@ module RandomToken
       else
         raise RandomTokenError.new(:not_support_case, opt) if opt[:case] != nil
       end
-      if opt[:support_friendly] 
+      if opt[:support_friendly]
         if opt[:friendly] || (opt[:friendly] == nil && opt[:mask])
           masked_seed = opt[:seed].dup
           mask = opt[:mask] || MASK
