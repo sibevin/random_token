@@ -1,6 +1,7 @@
 require 'coveralls'
 Coveralls.wear!
 
+require "rubygems"
 gem "minitest"
 require "minitest/autorun"
 
