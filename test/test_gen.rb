@@ -1,4 +1,5 @@
-require 'minitest/autorun'
+gem "minitest"
+require "minitest/autorun"
 
 $LOAD_PATH.unshift("#{File.dirname(__FILE__)}")
 require "test_helper"

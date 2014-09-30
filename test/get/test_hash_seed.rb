@@ -1,4 +1,5 @@
-require 'minitest/autorun'
+gem "minitest"
+require "minitest/autorun"
 require "random_token"
 
 class TestHashSeed < Minitest::Test
