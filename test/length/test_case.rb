@@ -1,7 +1,7 @@
-require "test/unit"
+require "minitest/autorun"
 require "random_token"
 
-class TestCase < Test::Unit::TestCase
+class TestCase < Minitest::Test
   def test_gen_should_create_a_random_with_upper_case_alphabets_or_numbers
     length = 10000
     token = RandomToken.gen(length, :case => :up)
@@ -28,13 +28,13 @@ class TestCase < Test::Unit::TestCase
 
   def test_gen_should_not_support_case_feature_when_creating_binray_random
     length = 10000
-    e = assert_raise(RandomToken::RandomTokenError) { RandomToken.gen(length, :seed => :b, :case => :up) }
+    e = assert_raises(RandomToken::RandomTokenError) { RandomToken.gen(length, :seed => :b, :case => :up) }
     assert(e.code == :not_support_case)
   end
 
   def test_gen_should_not_support_case_feature_when_creating_octal_random
     length = 10000
-    e = assert_raise(RandomToken::RandomTokenError) { RandomToken.gen(length, :seed => :o, :case => :up) }
+    e = assert_raises(RandomToken::RandomTokenError) { RandomToken.gen(length, :seed => :o, :case => :up) }
     assert(e.code == :not_support_case)
   end
 
