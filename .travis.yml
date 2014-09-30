@@ -1,0 +1,15 @@
+language: ruby
+
+rvm:
+  - 2.0.0
+  - 1.9.3
+
+before_install:
+  - gem install coveralls
+
+script: "ruby ./test/test_all.rb"
+
+branches:
+  only:
+    - build
+    - cover-check

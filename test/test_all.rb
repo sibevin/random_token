@@ -1,4 +1,7 @@
-require "test/unit"
+require 'coveralls'
+Coveralls.wear!
+
+require 'minitest/autorun'
 
 $LOAD_PATH.unshift("#{File.dirname(__FILE__)}")
 require "test_helper"

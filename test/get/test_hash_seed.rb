@@ -1,7 +1,7 @@
-require "test/unit"
+require 'minitest/autorun'
 require "random_token"
 
-class TestHashSeed < Test::Unit::TestCase
+class TestHashSeed < Minitest::Test
   def test_get_should_create_a_random_with_the_given_seeds
     length = 10000
     token = RandomToken.get(length, :seed => { 'a' => 1, 'b' => 2, 'c' => 3 })
@@ -20,7 +20,7 @@ class TestHashSeed < Test::Unit::TestCase
 
   def test_get_should_not_support_case_feature_when_given_the_hash_seed
     length = 10000
-    e = assert_raise(RandomToken::RandomTokenError) { 
+    e = assert_raises(RandomToken::RandomTokenError) {
       RandomToken.get(length, :seed => { 'a' => 1, 'b' => 2, 'c' => 3 }, :case => :up)
     }
     assert(e.code == :not_support_case)
@@ -28,7 +28,7 @@ class TestHashSeed < Test::Unit::TestCase
 
   def test_get_should_not_support_friendly_feature_when_given_the_hash_seed
     length = 10000
-    e = assert_raise(RandomToken::RandomTokenError) { 
+    e = assert_raises(RandomToken::RandomTokenError) {
       RandomToken.get(length, :seed => { 'a' => 1, 'b' => 2, 'c' => 3 }, :friendly => true)
     }
     assert(e.code == :not_support_friendly)
