@@ -1,7 +1,7 @@
-require "test/unit"
+require 'minitest/autorun'
 require "random_token"
 
-class TestSeed < Test::Unit::TestCase
+class TestSeed < Minitest::Test
   def test_get_should_create_a_random_with_alphabets_only
     length = 10000
     token = RandomToken.get(length, :seed => :a)
