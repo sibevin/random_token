@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.8.6.2
+    &mdash; Documentation by YARD 0.8.7.4
   
 </title>
 
@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '';
-  framesUrl = "frames.html#!" + escape(window.location.href);
+  framesUrl = "frames.html#!file.README.html";
 </script>
 
 
@@ -63,6 +63,9 @@
 
     <div id="content"><div id='filecontents'><h1>Random Token</h1>
 
+<p><a href="https://rubygems.org/gems/random_token"><img src="https://badge.fury.io/rb/random_token.png" alt="Gem Version"></a>
+<a href="https://travis-ci.org/sibevin/random_token"><img src="https://travis-ci.org/sibevin/random_token.png?branch=build" alt="Build Status"></a></p>
+
 <p>A simple way to generate a random token.</p>
 
 <pre class="code ruby"><code class="ruby">jjukoguwegcvclkuhljvsblrpfnd
@@ -81,7 +84,16 @@ DRRJVYVMEVREBFYXLLFQGISGAGED
 
 <h3>Basic</h3>
 
-<p>Use &quot;gen&quot; method to create a random token with a given length.</p>
+<p>Use &quot;gen&quot; method with a format string to create a random token.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%8?</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='comment'># &quot;6HRQZp8O&quot;
+</span>
+<span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%4H-%4H-%4H-%4H</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='comment'># &quot;FD77-2792-91A9-6CE3&quot;
+</span></code></pre>
+
+<p>Or just give the token length.</p>
 
 <pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>8</span><span class='rparen'>)</span>
 <span class='comment'># &quot;iUEFxcG2&quot;
@@ -89,131 +101,22 @@ DRRJVYVMEVREBFYXLLFQGISGAGED
 
 <p>Some options can help to modify the token format.</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>20</span><span class='comma'>,</span> <span class='symbol'>:seed</span> <span class='op'>=&gt;</span> <span class='symbol'>:alphabet</span><span class='comma'>,</span> <span class='symbol'>:friendly</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='symbol'>:case</span> <span class='op'>=&gt;</span> <span class='symbol'>:up</span><span class='rparen'>)</span>
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>20</span><span class='comma'>,</span> <span class='label'>seed:</span> <span class='symbol'>:alphabet</span><span class='comma'>,</span> <span class='label'>friendly:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>case:</span> <span class='symbol'>:up</span><span class='rparen'>)</span>
 <span class='comment'># &quot;YTHJHTXKSSXTPLARALRH&quot;
 </span></code></pre>
 
-<p>Use string format to create a random in the particular format. Please read &quot;Format&quot; below to get more details.</p>
+<p>Or just simplify as:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Give me a token %8?</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='comment'># &quot;Give me a token 6HRQZp8O&quot;
-</span></code></pre>
-
-<h3>Seed</h3>
-
-<p>Use <code>:seed</code> option to customize the random characters.</p>
-
-<p>Use <code>:a</code> (or <code>:alphabet</code>, <code>:l</code>, <code>:letter</code>) to create a token with alphabets.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='symbol'>:seed</span> <span class='op'>=&gt;</span> <span class='symbol'>:a</span><span class='rparen'>)</span>
-<span class='comment'># &quot;DTVbCnRldQnLAoERHAzjLOTJBTWoBGQb&quot;
-</span></code></pre>
-
-<p>Use <code>:n</code> (or <code>:number</code>, <code>10</code>, <code>1</code>) to create a token with numbers.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='symbol'>:seed</span> <span class='op'>=&gt;</span> <span class='symbol'>:n</span><span class='rparen'>)</span>
-<span class='comment'># &quot;41107838709625922353782552721916&quot;
-</span></code></pre>
-
-<p>Use <code>:b</code> (or <code>:binary</code>, <code>2</code>) to create a binary token.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='symbol'>:seed</span> <span class='op'>=&gt;</span> <span class='symbol'>:b</span><span class='rparen'>)</span>
-<span class='comment'># &quot;11101001110110110000101101010101&quot;
-</span></code></pre>
-
-<p>Use <code>:o</code> (or <code>:oct</code>, 8) to create a octal token.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='symbol'>:seed</span> <span class='op'>=&gt;</span> <span class='symbol'>:o</span><span class='rparen'>)</span>
-<span class='comment'># &quot;57531726664723324643140173424423&quot;
-</span></code></pre>
-
-<p>Use <code>:h</code> (or <code>:hex</code>, 16) to create a hexadecimal token.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='symbol'>:seed</span> <span class='op'>=&gt;</span> <span class='symbol'>:h</span><span class='rparen'>)</span>
-<span class='comment'># &quot;B7E1FD250D250008314496AE48EDE310&quot;
-</span></code></pre>
-
-<p>Use an <code>array</code> to customize random seeds.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='symbol'>:seed</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>a</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>b</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>c</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
-<span class='comment'># &quot;cbbcbcabbbacbaaababcbcabcacbcacb&quot;
-</span></code></pre>
-
-<p>Use a <code>hash</code> to customize random seeds and their distribution. For example, the following hash would create a token with &quot;a&quot; and &quot;b&quot; where p(&quot;a&quot;) = 1/3 and p(&quot;b&quot;) = 2/3.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='symbol'>:seed</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>a</span><span class='tstring_end'>'</span></span> <span class='op'>=&gt;</span> <span class='int'>1</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>b</span><span class='tstring_end'>'</span></span> <span class='op'>=&gt;</span> <span class='int'>2</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
-<span class='comment'># &quot;bbabbaaaabaabbbabbbbbbbbbaababbb&quot;
-</span></code></pre>
-
-<h3>Friendly</h3>
-
-<p>Use <code>:friendly</code> option to remove the ambiguous characters, the default mask includes <em>1, I, l, i, 0, O, o, Q, D, C, c, G, 9, 6, U, u, V, v, E, F, M, N, 8, B</em>.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='symbol'>:friendly</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rparen'>)</span>
-<span class='comment'># &quot;fjx5WTb4wbPmbwb7b4szzY4szfrqtJLj&quot;
-</span></code></pre>
-
-<p>The default <code>:friendly</code> option is false. There is a convenient method &quot;genf&quot; using <code>:friendly =&gt; true</code> by default.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_genf'>genf</span><span class='lparen'>(</span><span class='int'>32</span><span class='rparen'>)</span>
-<span class='comment'># &quot;kPafJh5gHAPJjYsssjW7yhthPr4Zg4t3&quot;
-</span></code></pre>
-
-<p>Friendly is not supported with some <code>:seed</code> options(<code>:b</code>, <code>:o</code>, <code>:h</code> and customized hash seeds).</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_genf'>genf</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='symbol'>:seed</span> <span class='op'>=&gt;</span> <span class='symbol'>:b</span><span class='rparen'>)</span>
-<span class='comment'># RandomToken::RandomTokenError: RandomToken::RandomTokenError
-</span></code></pre>
-
-<p>Use <code>:mask</code> to customize your own friendly mask. Note that <code>:friendly</code> is true by default if <code>:mask</code> is given.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='symbol'>:mask</span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>a</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>A</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>b</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>c</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
-<span class='comment'># &quot;QlHhMpfrGnOykMS8tpfYrW0EnqvRsItw&quot;
-</span></code></pre>
-
-<h3>Case</h3>
-
-<p>Use <code>:case</code> option to modify the token case.</p>
-
-<p>Use <code>:u</code> (or <code>:up</code>) to create an upper-case token.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='symbol'>:case</span> <span class='op'>=&gt;</span> <span class='symbol'>:u</span><span class='rparen'>)</span>
-<span class='comment'># &quot;YKNOAMC5FQZTMRS9U3SI4U9QWEMU7TLL&quot;
-</span></code></pre>
-
-<p>Use <code>:d</code> (or <code>:down</code>) to create a down-case token.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='symbol'>:case</span> <span class='op'>=&gt;</span> <span class='symbol'>:d</span><span class='rparen'>)</span>
-<span class='comment'># &quot;8fvs6dfxko4buxcho23vz5jpxw9arj7t&quot;
-</span></code></pre>
-
-<p>Use <code>:m</code> (or <code>:mixed</code>) to create a mixed-case token. It is the default option.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='symbol'>:case</span> <span class='op'>=&gt;</span> <span class='symbol'>:m</span><span class='rparen'>)</span>
-<span class='comment'># &quot;BjWRJjU2iKF2O1cKrWpnF1EzZHuoUCM5&quot;
-</span></code></pre>
-
-<p>Case is not supported with some <code>:seed</code> options(<code>:n</code>, <code>:b</code>, <code>:o</code> and customized hash seeds).</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='symbol'>:seed</span> <span class='op'>=&gt;</span> <span class='symbol'>:n</span><span class='comma'>,</span> <span class='symbol'>:case</span> <span class='op'>=&gt;</span> <span class='symbol'>:u</span><span class='rparen'>)</span>
-<span class='comment'># RandomToken::RandomTokenError: RandomToken::RandomTokenError
-</span></code></pre>
-
-<p>With :hex seed, i.e, <code>:seed =&gt; :h</code>, the default case is changed to upper-case. You can override it by giving the <code>:case</code> option.</p>
-
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='symbol'>:seed</span> <span class='op'>=&gt;</span> <span class='symbol'>:h</span><span class='comma'>,</span> <span class='symbol'>:case</span> <span class='op'>=&gt;</span> <span class='symbol'>:d</span><span class='rparen'>)</span>
-<span class='comment'># &quot;d331ce7dae87f3bb3dcb3975be9c430d&quot;
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>20</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='symbol'>:a</span><span class='comma'>,</span> <span class='label'>f:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>c:</span> <span class='symbol'>:u</span><span class='rparen'>)</span>
+<span class='comment'># &quot;YTHJHTXKSSXTPLARALRH&quot;
 </span></code></pre>
 
 <h3>Format</h3>
 
-<p>You can embed random tokens in your own string using the format feature. Here are some examples:</p>
+<p>You can embed random tokens in your own string using a format string. Here are some examples:</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%4H-%4H-%4H-%4H</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='comment'># &quot;FD77-2792-91A9-6CE3&quot;
-</span>
-<span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%2A-%4n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='comment'># &quot;VS-6921&quot; 
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%2A-%4n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='comment'># &quot;VS-6921&quot;
 </span>
 <span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_genf'>genf</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Your redeem code: %16?</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='comment'># &quot;Your redeem code: 4xgRH2JaLxtR3dWK&quot;
@@ -255,11 +158,170 @@ x - down-case alphabets and numbers<br>
 % - show the % sign  </p>
 </blockquote>
 
-<p>Note that <code>:seed</code>, <code>:friendly</code>, <code>:case</code> options are also supported in the format string, and they would override the type behavior.</p>
+<p><code>:seed</code>, <code>:friendly</code>, <code>:case</code> options are supported in the format string, and they would override the type behavior.</p>
 
-<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%32X</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:seed</span> <span class='op'>=&gt;</span> <span class='symbol'>:a</span><span class='comma'>,</span> <span class='symbol'>:friendly</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='symbol'>:case</span> <span class='op'>=&gt;</span> <span class='symbol'>:d</span><span class='rparen'>)</span>
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%32X</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>seed:</span> <span class='symbol'>:a</span><span class='comma'>,</span> <span class='label'>friendly:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>case:</span> <span class='symbol'>:d</span><span class='rparen'>)</span>
 <span class='comment'># &quot;ddbpeqhtmaenxsaksxrmeaawnwpkfess&quot;
 </span></code></pre>
+
+<h3>Length</h3>
+
+<p>You can just give a token length. For example:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>8</span><span class='rparen'>)</span>
+<span class='comment'># &quot;iUEFxcG2&quot;
+</span></code></pre>
+
+<p>The random token are created with mixed-case alphbets and numbers by default, same as the format string, you can use <code>:seed</code>, <code>:friendly</code>, <code>:case</code> options to modify the your token.</p>
+
+<h2>Options</h2>
+
+<h3>Seed</h3>
+
+<p>Use <code>:s</code> (or <code>:seed</code>) option to customize the random characters. Here are available options:</p>
+
+<p>Use <code>:a</code> (or <code>:alphabet</code>, <code>:l</code>, <code>:letter</code>) to create a token with alphabets.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='symbol'>:a</span><span class='rparen'>)</span>
+<span class='comment'># &quot;DTVbCnRldQnLAoERHAzjLOTJBTWoBGQb&quot;
+</span></code></pre>
+
+<p>Use <code>:n</code> (or <code>:number</code>, <code>10</code>, <code>1</code>) to create a token with numbers.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='symbol'>:n</span><span class='rparen'>)</span>
+<span class='comment'># &quot;41107838709625922353782552721916&quot;
+</span></code></pre>
+
+<p>Use <code>:b</code> (or <code>:binary</code>, <code>2</code>) to create a binary token.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='symbol'>:b</span><span class='rparen'>)</span>
+<span class='comment'># &quot;11101001110110110000101101010101&quot;
+</span></code></pre>
+
+<p>Use <code>:o</code> (or <code>:oct</code>, 8) to create a octal token.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='symbol'>:o</span><span class='rparen'>)</span>
+<span class='comment'># &quot;57531726664723324643140173424423&quot;
+</span></code></pre>
+
+<p>Use <code>:h</code> (or <code>:hex</code>, 16) to create a hexadecimal token.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='symbol'>:h</span><span class='rparen'>)</span>
+<span class='comment'># &quot;B7E1FD250D250008314496AE48EDE310&quot;
+</span></code></pre>
+
+<p>Use an <code>array</code> to customize random seeds.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>b</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='comment'># &quot;cbbcbcabbbacbaaababcbcabcacbcacb&quot;
+</span></code></pre>
+
+<p>Use a <code>hash</code> to customize random seeds and their distribution. For example, the following hash would create a token with &quot;a&quot; and &quot;b&quot; where p(&quot;a&quot;) = 1/3 and p(&quot;b&quot;) = 2/3.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='int'>1</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>b</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='int'>2</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='comment'># &quot;bbabbaaaabaabbbabbbbbbbbbaababbb&quot;
+</span></code></pre>
+
+<h3>Friendly &amp; Mask</h3>
+
+<p>Use <code>:f</code> (or <code>:friendly</code>) option to remove the ambiguous characters, the default mask includes <em>1, I, l, i, 0, O, o, Q, D, C, c, G, 9, 6, U, u, V, v, E, F, M, N, 8, B</em>.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>f:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='comment'># &quot;fjx5WTb4wbPmbwb7b4szzY4szfrqtJLj&quot;
+</span></code></pre>
+
+<p>The default <code>:friendly</code> option is false. There is a convenient method &quot;genf&quot; using <code>friendly: true</code> by default.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_genf'>genf</span><span class='lparen'>(</span><span class='int'>32</span><span class='rparen'>)</span>
+<span class='comment'># &quot;kPafJh5gHAPJjYsssjW7yhthPr4Zg4t3&quot;
+</span></code></pre>
+
+<p>Friendly is not supported with some <code>:seed</code> options(<code>:b</code>, <code>:o</code>, <code>:h</code> and customized hash seeds).</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_genf'>genf</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='symbol'>:b</span><span class='rparen'>)</span>
+<span class='comment'># RandomToken::RandomTokenError: RandomToken::RandomTokenError
+</span></code></pre>
+
+<p>Use <code>:m</code> (or <code>:mask</code>) to customize your own friendly mask. Note that <code>:friendly</code> is true by default if <code>:mask</code> is given.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>m:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>a</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>A</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>b</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>c</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='comment'># &quot;QlHhMpfrGnOykMS8tpfYrW0EnqvRsItw&quot;
+</span></code></pre>
+
+<h3>Case</h3>
+
+<p>Use <code>:c</code> (or <code>:case</code>) option to modify the token case. Here are available options:</p>
+
+<p>Use <code>:u</code> (or <code>:up</code>) to create an upper-case token.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>c:</span> <span class='symbol'>:u</span><span class='rparen'>)</span>
+<span class='comment'># &quot;YKNOAMC5FQZTMRS9U3SI4U9QWEMU7TLL&quot;
+</span></code></pre>
+
+<p>Use <code>:d</code> (or <code>:down</code>) to create a down-case token.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>c:</span> <span class='symbol'>:d</span><span class='rparen'>)</span>
+<span class='comment'># &quot;8fvs6dfxko4buxcho23vz5jpxw9arj7t&quot;
+</span></code></pre>
+
+<p>Use <code>:m</code> (or <code>:mixed</code>) to create a mixed-case token. It is the default option.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>c:</span> <span class='symbol'>:m</span><span class='rparen'>)</span>
+<span class='comment'># &quot;BjWRJjU2iKF2O1cKrWpnF1EzZHuoUCM5&quot;
+</span></code></pre>
+
+<p>Case is not supported with some <code>:seed</code> options(<code>:n</code>, <code>:b</code>, <code>:o</code> and customized hash seeds).</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='symbol'>:n</span><span class='comma'>,</span> <span class='label'>c:</span> <span class='symbol'>:u</span><span class='rparen'>)</span>
+<span class='comment'># RandomToken::RandomTokenError: RandomToken::RandomTokenError
+</span></code></pre>
+
+<p>With :hex seed, i.e, <code>s: :h</code>, the default case is changed to upper-case. You can override it by giving the <code>:case</code> option.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='symbol'>:h</span><span class='comma'>,</span> <span class='label'>c:</span> <span class='symbol'>:d</span><span class='rparen'>)</span>
+<span class='comment'># &quot;d331ce7dae87f3bb3dcb3975be9c430d&quot;
+</span></code></pre>
+
+<h3>Byte-Length</h3>
+
+<p>Use <code>:b</code> (or <code>:byte</code>) option to enable byte-length mode. When byte-length mode is on, the length unit becomes &quot;bytes&quot;. For example:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='symbol'>:h</span><span class='rparen'>)</span>
+<span class='comment'># &quot;066010B727E0619DF90635DBCFBBC9CA&quot;
+</span><span class='comment'># length = 32
+</span>
+<span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='symbol'>:h</span><span class='comma'>,</span> <span class='label'>b:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='comment'># &quot;7D8FC8241CB1E5EE32BFB61212275733485B73F2B25F61F3684411BC77ECE331&quot;
+</span><span class='comment'># length = 32 * 2
+</span>
+<span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='symbol'>:o</span><span class='rparen'>)</span>
+<span class='comment'># &quot;33660161373115273571641666235250&quot;
+</span><span class='comment'># length = 32
+</span>
+<span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='symbol'>:o</span><span class='comma'>,</span> <span class='label'>b:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='comment'># &quot;13247642533766132340045425736322366461201703655601042333031121363007327500236255017153153410577614717424243614637434623101413176&quot;
+</span><span class='comment'># length = 32 * 4
+</span>
+<span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='symbol'>:b</span><span class='rparen'>)</span>
+<span class='comment'># &quot;10110010010011001101011111001011&quot;
+</span><span class='comment'># length = 32
+</span>
+<span class='const'>RandomToken</span><span class='period'>.</span><span class='id identifier rubyid_gen'>gen</span><span class='lparen'>(</span><span class='int'>32</span><span class='comma'>,</span> <span class='label'>s:</span> <span class='symbol'>:b</span><span class='comma'>,</span> <span class='label'>b:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='comment'># &quot;00110111000100101100001011010001100100101110011001101000101110110001110111110100010001000011110101011011001001101001001100110110000100111110100011100101101011010111100011001100000010101111000010111101000000110101001100110011011000000111101100110101101111100000000111110000000010010100010110101010001010111010101000100101010100110001101000111110110110111011011111100111000000010010110110011111101110101001101101101001101011111010100101100110100100100100010100110111100010010010100010010000111000010000000110100101&quot;
+</span><span class='comment'># length = 32 * 16
+</span></code></pre>
+
+<p>Only <code>:binary</code>, <code>:oct</code>, <code>:hex</code> seeds support the byte-length mode.</p>
+
+<pre class="code ruby"><code class="ruby">RandomToken.gen(32, b: true)
+RandomToken::RandomTokenError: RandomToken::RandomTokenError
+</code></pre>
+
+<p>The byte-length mode is not supported by format either.</p>
+
+<pre class="code ruby"><code class="ruby">RandomToken.gen(&quot;%32h&quot;, b: true)
+RandomToken::RandomTokenError: RandomToken::RandomTokenError
+</code></pre>
 
 <h2>Use Cases</h2>
 
@@ -267,7 +329,7 @@ x - down-case alphabets and numbers<br>
 
 <p>How to create a RPG random desert map?</p>
 
-<pre class="code ruby"><code class="ruby">1.upto(10).each { puts RandomToken.gen(28, :seed =&gt; { '.' =&gt; 1000, 'o' =&gt; 20, 'O' =&gt; 5, '_' =&gt; 1 }) }
+<pre class="code ruby"><code class="ruby">1.upto(10).each { puts RandomToken.gen(28, s: { &#39;.&#39; =&gt; 1000, &#39;o&#39; =&gt; 20, &#39;O&#39; =&gt; 5, &#39;_&#39; =&gt; 1 }) }
 
 ............................
 .......................O.o..
@@ -289,7 +351,7 @@ x - down-case alphabets and numbers<br>
 
 <p>How to create a cool logo?</p>
 
-<pre class="code ruby"><code class="ruby">puts RandomToken.gen(&quot;%28a\n%2a#{' '*9}%3a#{' '*12}%2a\n%2a  %6a  %7a  %7a\n%2a  %6a  %7a  %7a\n%2?  %5?  %8?  %7?\n%2?#{' '*8}%9?  %7?\n%2?  %4?  %9?  %7?\n%2A  %5A  %8A  %7A\n%2A  %6A  andom%2A  oken%3A\n%28A&quot;)
+<pre class="code ruby"><code class="ruby">puts RandomToken.gen(&quot;%28a\n%2a#{&#39; &#39;*9}%3a#{&#39; &#39;*12}%2a\n%2a  %6a  %7a  %7a\n%2a  %6a  %7a  %7a\n%2?  %5?  %8?  %7?\n%2?#{&#39; &#39;*8}%9?  %7?\n%2?  %4?  %9?  %7?\n%2A  %5A  %8A  %7A\n%2A  %6A  andom%2A  oken%3A\n%28A&quot;)
 
 ieqccitkalecvbfehlfbkejdthxc
 kt         vhk            mw
@@ -307,7 +369,7 @@ NMVJJAXHHAPLDSYNHCXILCFWYAQA
 
 <h2>Test</h2>
 
-<p>Go to random_token gem folder and run</p>
+<p>Go to random_token gem folder and run (Note that you need minitest ~&gt; 5.0 to run these tests)</p>
 
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_ruby'>ruby</span> <span class='period'>.</span><span class='op'>/</span><span class='id identifier rubyid_test'>test</span><span class='op'>/</span><span class='id identifier rubyid_test_all'>test_all</span><span class='period'>.</span><span class='id identifier rubyid_rb'>rb</span>
 </code></pre>
@@ -322,9 +384,9 @@ NMVJJAXHHAPLDSYNHCXILCFWYAQA
 </div></div>
 
     <div id="footer">
-  Generated on Fri Jul 26 06:31:04 2013 by
+  Generated on Wed Oct  1 14:43:30 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.6.2 (ruby-1.9.3).
+  0.8.7.4 (ruby-2.0.0).
 </div>
 
   </body>

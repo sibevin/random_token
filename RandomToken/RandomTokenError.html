@@ -6,7 +6,7 @@
 <title>
   Exception: RandomToken::RandomTokenError
   
-    &mdash; Documentation by YARD 0.8.6.2
+    &mdash; Documentation by YARD 0.8.7.4
   
 </title>
 
@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '../';
-  framesUrl = "../frames.html#!" + escape(window.location.href);
+  framesUrl = "../frames.html#!RandomToken/RandomTokenError.html";
 </script>
 
 
@@ -159,7 +159,23 @@
   <span class='symbol'>:mask_remove_all_seeds</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
     <span class='symbol'>:value</span> <span class='op'>=&gt;</span> <span class='int'>7</span><span class='comma'>,</span>
     <span class='symbol'>:msg</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The friendly mask removes all seeds.</span><span class='tstring_end'>&quot;</span></span>
-  <span class='rbrace'>}</span>
+  <span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='symbol'>:duplicated_option</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+    <span class='symbol'>:value</span> <span class='op'>=&gt;</span> <span class='int'>8</span><span class='comma'>,</span>
+    <span class='symbol'>:msg</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The same options are given.</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='symbol'>:invalid_option_value</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+    <span class='symbol'>:value</span> <span class='op'>=&gt;</span> <span class='int'>9</span><span class='comma'>,</span>
+    <span class='symbol'>:msg</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The given option value is invalid.</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='symbol'>:format_not_support_byte</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+    <span class='symbol'>:value</span> <span class='op'>=&gt;</span> <span class='int'>10</span><span class='comma'>,</span>
+    <span class='symbol'>:msg</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The byte-length is not supported in the format mode.</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rbrace'>}</span><span class='comma'>,</span>
+  <span class='symbol'>:not_support_byte</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+    <span class='symbol'>:value</span> <span class='op'>=&gt;</span> <span class='int'>11</span><span class='comma'>,</span>
+    <span class='symbol'>:msg</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The byte-length feature is not supported in this case, but the byte option is true.</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rbrace'>}</span><span class='comma'>,</span>
 <span class='rbrace'>}</span></pre></dd>
       
     </dl>
@@ -423,25 +439,25 @@ usage.</p>
       <pre class="lines">
 
 
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60</pre>
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/random_token/random_token_error.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/random_token/random_token_error.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_error'>error</span><span class='comma'>,</span> <span class='id identifier rubyid_info'>info</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@code</span> <span class='op'>=</span> <span class='id identifier rubyid_error'>error</span>
@@ -449,7 +465,7 @@ usage.</p>
   <span class='kw'>if</span> <span class='const'>ERRORS</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_error'>error</span><span class='rparen'>)</span>
     <span class='ivar'>@value</span> <span class='op'>=</span> <span class='const'>ERRORS</span><span class='lbracket'>[</span><span class='id identifier rubyid_error'>error</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:value</span><span class='rbracket'>]</span>
     <span class='ivar'>@msg</span> <span class='op'>=</span> <span class='const'>ERRORS</span><span class='lbracket'>[</span><span class='id identifier rubyid_error'>error</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:msg</span><span class='rbracket'>]</span>
-  <span class='kw'>elsif</span> <span class='id identifier rubyid_error'>error</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>String</span><span class='tstring_end'>'</span></span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_error'>error</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>String</span><span class='tstring_end'>&#39;</span></span>
     <span class='ivar'>@code</span> <span class='op'>=</span> <span class='symbol'>:internal</span>
     <span class='ivar'>@value</span> <span class='op'>=</span> <span class='int'>90000</span>
     <span class='ivar'>@msg</span> <span class='op'>=</span> <span class='id identifier rubyid_error'>error</span>
@@ -497,12 +513,12 @@ usage.</p>
       <pre class="lines">
 
 
-38
-39
-40</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/random_token/random_token_error.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/random_token/random_token_error.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_code'>code</span>
   <span class='ivar'>@code</span>
@@ -540,12 +556,12 @@ usage.</p>
       <pre class="lines">
 
 
-38
-39
-40</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/random_token/random_token_error.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/random_token/random_token_error.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_info'>info</span>
   <span class='ivar'>@info</span>
@@ -583,12 +599,12 @@ usage.</p>
       <pre class="lines">
 
 
-38
-39
-40</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/random_token/random_token_error.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/random_token/random_token_error.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_msg'>msg</span>
   <span class='ivar'>@msg</span>
@@ -626,12 +642,12 @@ usage.</p>
       <pre class="lines">
 
 
-38
-39
-40</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/random_token/random_token_error.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/random_token/random_token_error.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_value'>value</span>
   <span class='ivar'>@value</span>
@@ -674,15 +690,15 @@ usage.</p>
       <pre class="lines">
 
 
-63
-64
-65</pre>
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/random_token/random_token_error.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/random_token/random_token_error.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_message'>message</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RandomTokenError(</span><span class='embexpr_beg'>#{</span><span class='ivar'>@code</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbrace'>}</span><span class='tstring_content'>): value = </span><span class='embexpr_beg'>#{</span><span class='ivar'>@value</span><span class='rbrace'>}</span><span class='tstring_content'>, msg = </span><span class='embexpr_beg'>#{</span><span class='ivar'>@msg</span><span class='rbrace'>}</span><span class='tstring_content'>, info = </span><span class='embexpr_beg'>#{</span><span class='ivar'>@info</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RandomTokenError(</span><span class='embexpr_beg'>#{</span><span class='ivar'>@code</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='embexpr_end'>}</span><span class='tstring_content'>): value = </span><span class='embexpr_beg'>#{</span><span class='ivar'>@value</span><span class='embexpr_end'>}</span><span class='tstring_content'>, msg = </span><span class='embexpr_beg'>#{</span><span class='ivar'>@msg</span><span class='embexpr_end'>}</span><span class='tstring_content'>, info = </span><span class='embexpr_beg'>#{</span><span class='ivar'>@info</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -694,9 +710,9 @@ usage.</p>
 </div>
 
     <div id="footer">
-  Generated on Fri Jul 26 06:31:04 2013 by
+  Generated on Wed Oct  1 14:43:30 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.6.2 (ruby-1.9.3).
+  0.8.7.4 (ruby-2.0.0).
 </div>
 
   </body>
