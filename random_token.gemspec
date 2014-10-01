@@ -16,10 +16,10 @@ Use "gen" method to create a random token with a given length.
 
 Some options can help to modify the token format.
 
-  RandomToken.gen(20, :seed => :alphabet, :friendly => true, :case => :up)
+  RandomToken.gen(20, seed: :alphabet, friendly: true, case: :up)
   # "YTHJHTXKSSXTPLARALRH"
 
-Use string format to create a random in the particular format. 
+Use string format to create a random in the particular format.
 
   RandomToken.gen("Give me a token %8?")
   # "Give me a token 6HRQZp8O"
@@ -31,4 +31,5 @@ Please see "README" to get more details.
   spec.files         = `git ls-files`.split($/)
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
+  spec.add_development_dependency 'minitest', '~> 5.0'
 end
