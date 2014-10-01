@@ -189,6 +189,44 @@ With :hex seed, i.e, `s: :h`, the default case is changed to upper-case. You can
     RandomToken.gen(32, s: :h, c: :d)
     # "d331ce7dae87f3bb3dcb3975be9c430d"
 
+### Byte-Length
+
+Use `:b` (or `:byte`) option to enable byte-length mode. When byte-length mode is on, the length unit becomes "bytes". For example:
+
+    RandomToken.gen(32, s: :h)
+    # "066010B727E0619DF90635DBCFBBC9CA"
+    # length = 32
+
+    RandomToken.gen(32, s: :h, b: true)
+    # "7D8FC8241CB1E5EE32BFB61212275733485B73F2B25F61F3684411BC77ECE331"
+    # length = 32 * 2
+
+    RandomToken.gen(32, s: :o)
+    # "33660161373115273571641666235250"
+    # length = 32
+
+    RandomToken.gen(32, s: :o, b: true)
+    # "13247642533766132340045425736322366461201703655601042333031121363007327500236255017153153410577614717424243614637434623101413176"
+    # length = 32 * 4
+
+    RandomToken.gen(32, s: :b)
+    # "10110010010011001101011111001011"
+    # length = 32
+
+    RandomToken.gen(32, s: :b, b: true)
+    #"00110111000100101100001011010001100100101110011001101000101110110001110111110100010001000011110101011011001001101001001100110110000100111110100011100101101011010111100011001100000010101111000010111101000000110101001100110011011000000111101100110101101111100000000111110000000010010100010110101010001010111010101000100101010100110001101000111110110110111011011111100111000000010010110110011111101110101001101101101001101011111010100101100110100100100100010100110111100010010010100010010000111000010000000110100101"
+    # length = 32 * 16
+
+Only `:binary`, `:oct`, `:hex` seeds support the byte-length mode.
+
+    RandomToken.gen(32, b: true)
+    RandomToken::RandomTokenError: RandomToken::RandomTokenError
+
+The byte-length mode is not supported by format either.
+
+    RandomToken.gen("%32h", b: true)
+    RandomToken::RandomTokenError: RandomToken::RandomTokenError
+
 ## Use Cases
 
 ### Case 1
@@ -233,7 +271,7 @@ Uh, I don't think it is cool enough...
 
 ## Test
 
-Go to random_token gem folder and run
+Go to random_token gem folder and run (Note that you need minitest ~> 5.0 to run these tests)
 
     ruby ./test/test_all.rb
 
