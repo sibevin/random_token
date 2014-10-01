@@ -28,11 +28,13 @@ module RandomToken
       :seed => [NUMBERS, ALPHABETS],
       :support_friendly => true,
       :support_case => true,
-      :default_case => :mixed
+      :default_case => :mixed,
+      :support_byte => false,
+      :byte_mult => 1
     },
     :alphabet => {
       :abbr => [:letter, :a, :l],
-      :seed => [ALPHABETS],
+      :seed => [ALPHABETS]
     },
     :number => {
       :abbr => [:n, 1, 10],
@@ -43,19 +45,25 @@ module RandomToken
       :abbr => [:b, 2],
       :seed => [('0'..'1')],
       :support_case => false,
-      :support_friendly => false
+      :support_friendly => false,
+      :support_byte => true,
+      :byte_mult => 16
     },
     :oct => {
       :abbr => [:o, 8],
       :seed => [('0'..'7')],
       :support_case => false,
-      :support_friendly => false
+      :support_friendly => false,
+      :support_byte => true,
+      :byte_mult => 4
     },
     :hex => {
       :abbr => [:h, 16],
       :seed => [NUMBERS, ('A'..'F')],
       :support_friendly => false,
-      :default_case => :up
+      :default_case => :up,
+      :support_byte => true,
+      :byte_mult => 2
     }
   }
 
@@ -73,6 +81,10 @@ module RandomToken
     },
     :friendly => {
       :abbr => :f,
+      :value => [true, false]
+    },
+    :byte => {
+      :abbr => :b,
       :value => [true, false]
     }
   }
@@ -186,7 +198,9 @@ module RandomToken
     # Generate/count token with a given length.
     def run_by_length(length, options)
       if block_given?
-        seeds = gen_seeds(options)[:seed]
+        final_opt = gen_seeds(options)
+        seeds = final_opt[:seed]
+        length = length * final_opt[:byte_mult] if final_opt[:byte]
         yield(length, seeds)
       else
         raise RandomTokenError.new(
@@ -199,6 +213,9 @@ module RandomToken
       unless block_given?
         raise RandomTokenError.new(
           "No block is given when calling run_by_pattern.")
+      end
+      if options[:byte]
+        raise RandomTokenError.new(:format_not_support_byte, options)
       end
       in_arg = false
       result = []
@@ -314,6 +331,9 @@ module RandomToken
         end
       end
       raise RandomTokenError.new(:mask_remove_all_seeds, opt) if opt[:seed] == []
+      if opt[:support_byte] == false && opt[:byte] != nil
+        raise RandomTokenError.new(:not_support_byte, opt)
+      end
       opt
     end
   end

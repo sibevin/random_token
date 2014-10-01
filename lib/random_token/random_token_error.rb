@@ -41,6 +41,14 @@ module RandomToken
         :value => 9,
         :msg => "The given option value is invalid."
       },
+      :format_not_support_byte => {
+        :value => 10,
+        :msg => "The byte-length is not supported in the format mode."
+      },
+      :not_support_byte => {
+        :value => 11,
+        :msg => "The byte-length feature is not supported in this case, but the byte option is true."
+      },
     }
 
     attr_reader :code, :value, :msg, :info

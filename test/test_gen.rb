@@ -10,6 +10,7 @@ require "length/test_friendly"
 require "length/test_seed"
 require "length/test_mask"
 require "length/test_hash_seed"
+require "length/test_byte"
 require "format/test_pattern"
 require "format/test_percent"
 
