@@ -173,7 +173,7 @@ module RandomToken
         raise RandomTokenError.new(
           "No block is given when calling arg_dispatcher.")
       end
-      if arg.is_a?(Fixnum)
+      if arg.is_a?(Integer)
         run_by_length(arg, options) do |length, seeds|
           yield(length, seeds)
         end
