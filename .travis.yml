@@ -1,7 +1,6 @@
 language: ruby
 
 rvm:
-  - head
   - 2.4.0
 
 before_install:
