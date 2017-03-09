@@ -1,3 +1,7 @@
+## v1.1.1 / 2017-03-07
+
+* [Change] Use Integer instead fo Fixnum for integer check
+
 ## v1.1.0 / 2014-10-01
 
 * [Feature] Support the byte-length mode
@@ -6,4 +10,3 @@
 
 * [Dependence] Use new unit test syntex for testing, require minitest ~> 5.0
 * [Change] Use "SecureRandom.random_number" instead of "rand"
-
