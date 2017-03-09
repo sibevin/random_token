@@ -1,8 +1,8 @@
 language: ruby
 
 rvm:
-  - 2.0.0
-  - 1.9.3
+  - head
+  - 2.4.0
 
 before_install:
   - gem install coveralls
